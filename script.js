@@ -12,6 +12,9 @@ let result;
 numbers.addEventListener("click", event => {
     if (event.target.textContent === "DEL") {
         screen.textContent = screen.textContent.slice(0,-1);
+        valueOnScreen = updateScreen('get');
+        valueOnScreen = valueOnScreen.slice(0,-1);
+        updateScreen('set', valueOnScreen);
         buffer = screen.textContent;
     } else {
         if (screen.textContent === "" || screen.textContent === "0") {
@@ -40,9 +43,22 @@ equal.addEventListener("click", () => {
     buffer = screen.textContent;
     secondNumber = buffer;
     operate();
-    screen.textContent = result;
+    operator = '';
+    updateScreen('set', result);
     buffer = result;
 })
+
+
+function updateScreen(type ,value = 0) {
+    switch (type) {
+        case 'set':
+            screen.textContent = '';
+            screen.textContent = value;
+            break;
+        case 'get':
+            return screen.textContent;
+    }
+}
 
 
 
